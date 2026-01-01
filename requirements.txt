@@ -1,0 +1,98 @@
+# Project Dependencies for Fake Order Detection System
+# Installation: pip install -r requirements.txt
+
+# ============================================
+# CORE DATA SCIENCE LIBRARIES
+# ============================================
+
+# Data manipulation and analysis
+pandas>=1.5.0
+numpy>=1.23.0
+
+# Machine learning
+scikit-learn>=1.2.0
+
+# Model persistence
+joblib>=1.2.0
+
+# ============================================
+# DATA VISUALIZATION
+# ============================================
+
+# Plotting and visualization
+matplotlib>=3.6.0
+seaborn>=0.12.0
+
+# ============================================
+# JUPYTER NOTEBOOK
+# ============================================
+
+# Interactive development environment
+jupyter>=1.0.0
+notebook>=6.5.0
+ipykernel>=6.19.0
+
+# ============================================
+# API DEVELOPMENT (OPTIONAL - FOR BONUS)
+# ============================================
+
+# Web framework for REST API
+flask>=2.3.0
+flask-cors>=4.0.0
+
+# Alternative: FastAPI (modern, async)
+# fastapi>=0.95.0
+# uvicorn>=0.21.0
+
+# ============================================
+# DATA HANDLING
+# ============================================
+
+# Handle missing values and preprocessing
+scipy>=1.10.0
+
+# For handling imbalanced datasets
+imbalanced-learn>=0.10.0
+
+# ============================================
+# UTILITIES
+# ============================================
+
+# Progress bars for loops
+tqdm>=4.65.0
+
+# Python dotenv for environment variables
+python-dotenv>=1.0.0
+
+# ============================================
+# AZURE INTEGRATION (OPTIONAL)
+# ============================================
+
+# Azure SDK for Python (if deploying to Azure)
+# azure-storage-blob>=12.16.0
+# azure-identity>=1.13.0
+
+# ============================================
+# VERSION INFORMATION
+# ============================================
+# Python Version Required: 3.9 or higher
+# Installation tested on: Windows 11, Python 3.11
+
+# ============================================
+# INSTALLATION NOTES
+# ============================================
+# 
+# Standard installation:
+#   pip install -r requirements.txt
+#
+# For development (with Jupyter):
+#   pip install -r requirements.txt
+#
+# For API only (minimal):
+#   pip install pandas numpy scikit-learn joblib flask
+#
+# For Azure deployment:
+#   Uncomment azure-* packages above
+#
+# Total installation size: ~500 MB
+# Installation time: 2-5 minutes
