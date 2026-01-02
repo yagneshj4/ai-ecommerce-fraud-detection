@@ -17,7 +17,7 @@ Access:
     http://localhost:5000
 """
 
-from flask import Flask, request, jsonify, render_template_string
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import pandas as pd
 import sys
@@ -41,9 +41,11 @@ CORS(app)  # Enable CORS for frontend integration
 # Load model at startup
 print("🔧 Loading fraud detection model...")
 try:
-    MODEL = load_model('../models/fraud_detector.pkl')
-    SCALER = load_scaler('../models/scaler.pkl')
-    FEATURE_NAMES = load_feature_names('../models/feature_names.pkl')
+    # Fix path - use models/ from project root
+    model_dir = Path(__file__).parent.parent / 'models'
+    MODEL = load_model(str(model_dir / 'fraud_detector.pkl'))
+    SCALER = load_scaler(str(model_dir / 'scaler.pkl'))
+    FEATURE_NAMES = load_feature_names(str(model_dir / 'feature_names.pkl'))
     print("✅ Model loaded successfully!")
 except Exception as e:
     print(f"❌ Error loading model: {e}")
@@ -209,6 +211,11 @@ API_DOCS = """
 
 @app.route('/')
 def home():
+    """Main fraud detection web interface"""
+    return render_template('index.html')
+
+@app.route('/docs')
+def docs():
     """API documentation page"""
     status = "✅ Model Loaded" if MODEL is not None else "❌ Model Not Loaded"
     return render_template_string(API_DOCS, status=status)

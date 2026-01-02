@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fraud Detection System | Team Three Unknowns</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="shield-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L4 5V11C4 16.55 7.84 21.74 12 23C16.16 21.74 20 16.55 20 11V5L12 2Z" 
+                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" 
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div>
+                        <h1>AI Fraud Detection System</h1>
+                        <p class="subtitle">Machine Learning-Powered Transaction Analysis</p>
+                    </div>
+                </div>
+                <div class="header-meta">
+                    <span class="status-badge">
+                        <span class="status-dot"></span>
+                        Model Active
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Project Info Card -->
+            <div class="info-card">
+                <div class="info-header">
+                    <h2>🎓 Mini Project 2026</h2>
+                    <p class="team-info">
+                        <strong>Team:</strong> Three Unknowns (Yagnesh, Bhaskar, Syam) | 
+                        <strong>Institution:</strong> VR Siddhartha Engineering College
+                    </p>
+                </div>
+                <p class="project-description">
+                    This intelligent system uses <strong>Logistic Regression</strong> and <strong>SMOTE balancing</strong> 
+                    to detect fraudulent e-commerce transactions with <strong>92% recall</strong> and 
+                    <strong>97% ROC-AUC score</strong>. The model analyzes 30 transaction features to identify 
+                    suspicious patterns in real-time.
+                </p>
+            </div>
+
+            <!-- Main Grid Layout -->
+            <div class="main-grid">
+                <!-- Left Column - Input Form -->
+                <div class="form-card">
+                    <h2 class="card-title">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M3 10h18M7 14h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Transaction Details
+                    </h2>
+
+                    <form id="fraudForm">
+                        <!-- Basic Transaction Info -->
+                        <div class="form-section">
+                            <h3>Basic Information</h3>
+                            
+                            <div class="form-group">
+                                <label for="amount">
+                                    Transaction Amount ($)
+                                    <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="amount" 
+                                    name="Amount" 
+                                    step="0.01" 
+                                    min="0"
+                                    placeholder="e.g., 149.99"
+                                    required
+                                >
+                                <small class="help-text">Enter the transaction amount in USD</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="time">
+                                    Time (seconds since first transaction)
+                                    <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="time" 
+                                    name="Time" 
+                                    min="0"
+                                    placeholder="e.g., 5000"
+                                    required
+                                >
+                                <small class="help-text">Time elapsed from account creation</small>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Features (Collapsible) -->
+                        <div class="form-section">
+                            <div class="section-header" onclick="toggleAdvanced()">
+                                <h3>Advanced Features (PCA Components)</h3>
+                                <button type="button" class="toggle-btn" id="toggleBtn">
+                                    <svg class="chevron" viewBox="0 0 24 24">
+                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" 
+                                              stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div id="advancedFields" class="advanced-fields">
+                                <p class="info-box">
+                                    <strong>ℹ️ Optional:</strong> These are PCA-transformed features. 
+                                    Leave at 0 for standard transactions. Modify for testing specific fraud patterns.
+                                </p>
+                                
+                                <div class="features-grid">
+                                    <!-- V1-V28 will be generated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Preset Buttons -->
+                        <div class="preset-section">
+                            <h3>Quick Test Presets</h3>
+                            <div class="preset-buttons">
+                                <button type="button" class="preset-btn genuine" onclick="loadPreset('genuine')">
+                                    ✓ Small Genuine Purchase
+                                </button>
+                                <button type="button" class="preset-btn suspicious" onclick="loadPreset('suspicious')">
+                                    ⚠️ Large Suspicious Order
+                                </button>
+                                <button type="button" class="preset-btn medium" onclick="loadPreset('medium')">
+                                    → Medium Transaction
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="currentColor" 
+                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Analyze Transaction
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column - Results -->
+                <div class="results-section">
+                    <!-- Placeholder State -->
+                    <div id="placeholderState" class="placeholder-state">
+                        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" 
+                                  stroke-linecap="round"/>
+                        </svg>
+                        <h3>Awaiting Transaction Data</h3>
+                        <p>Enter transaction details or use a preset to analyze for fraud</p>
+                    </div>
+
+                    <!-- Results Card (Hidden Initially) -->
+                    <div id="resultsCard" class="results-card" style="display: none;">
+                        <div class="result-header">
+                            <h2 class="card-title">Analysis Results</h2>
+                            <button class="close-btn" onclick="clearResults()">×</button>
+                        </div>
+
+                        <!-- Prediction Badge -->
+                        <div id="predictionBadge" class="prediction-badge">
+                            <div class="badge-icon">
+                                <svg id="resultIcon" viewBox="0 0 24 24">
+                                    <!-- Icon changes based on result -->
+                                </svg>
+                            </div>
+                            <div class="badge-content">
+                                <div class="badge-label">Prediction</div>
+                                <div id="predictionText" class="badge-value">-</div>
+                                <div id="confidenceText" class="badge-confidence">-</div>
+                            </div>
+                        </div>
+
+                        <!-- Probability Meter -->
+                        <div class="probability-meter">
+                            <div class="meter-label">
+                                <span>Fraud Probability</span>
+                                <span id="probabilityValue">0%</span>
+                            </div>
+                            <div class="meter-bar">
+                                <div id="probabilityFill" class="meter-fill"></div>
+                            </div>
+                        </div>
+
+                        <!-- Risk Level -->
+                        <div class="risk-indicator">
+                            <label>Risk Level</label>
+                            <div id="riskLevel" class="risk-badge">-</div>
+                        </div>
+
+                        <!-- Recommendation -->
+                        <div class="recommendation-box">
+                            <h3>💡 Recommendation</h3>
+                            <p id="recommendationText">-</p>
+                        </div>
+
+                        <!-- Transaction Details -->
+                        <div class="transaction-details">
+                            <h3>Transaction Summary</h3>
+                            <table>
+                                <tr>
+                                    <td>Amount:</td>
+                                    <td id="displayAmount">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Time:</td>
+                                    <td id="displayTime">-</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="loading-state" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Analyzing transaction...</p>
+                    </div>
+
+                    <!-- Error State -->
+                    <div id="errorState" class="error-state" style="display: none;">
+                        <svg class="error-icon" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" 
+                                  stroke-linecap="round"/>
+                        </svg>
+                        <h3>Analysis Failed</h3>
+                        <p id="errorMessage">-</p>
+                        <button class="retry-btn" onclick="clearResults()">Try Again</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Performance Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">92%</div>
+                    <div class="stat-label">Recall</div>
+                    <small>Fraud detection rate</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">97%</div>
+                    <div class="stat-label">ROC-AUC</div>
+                    <small>Model performance</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">30</div>
+                    <div class="stat-label">Features</div>
+                    <small>Analyzed per transaction</small>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">284K</div>
+                    <div class="stat-label">Training Data</div>
+                    <small>Transactions analyzed</small>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 Team Three Unknowns | VR Siddhartha Engineering College</p>
+            <p class="footer-links">
+                <a href="/docs">API Documentation</a> • 
+                <a href="https://github.com/yagneshj4/ai-ecommerce-fraud-detection" target="_blank">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
